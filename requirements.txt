@@ -10,3 +10,20 @@ redis
 celery
 pgvector
 python-dotenv
+
+# Document processing libraries
+PyPDF2
+python-docx
+python-pptx
+SpeechRecognition
+pydub
+
+# AI and machine learning
+openai
+
+# Audio processing dependencies
+ffmpeg-python
+
+# Additional utilities
+aiofiles
+python-magic

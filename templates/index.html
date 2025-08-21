@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document AI Processor</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center">
+                    <i class="fas fa-brain text-3xl text-blue-600 mr-3"></i>
+                    <h1 class="text-2xl font-bold text-gray-900">Document AI Processor</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="historyBtn" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-history mr-2"></i>History
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- File Upload Section -->
+        <div id="uploadSection" class="bg-white rounded-lg shadow-sm border p-6 mb-8">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">
+                <i class="fas fa-upload mr-2 text-blue-600"></i>Upload Documents & Audio
+            </h2>
+            
+            <div class="mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-700 mb-3">Supported Formats</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-pdf text-red-500 mr-2"></i>
+                                <span class="text-sm text-gray-600">PDF Documents</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-file-word text-blue-500 mr-2"></i>
+                                <span class="text-sm text-gray-600">Word Documents (.docx, .doc)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-file-powerpoint text-orange-500 mr-2"></i>
+                                <span class="text-sm text-gray-600">PowerPoint (.pptx, .ppt)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-music text-purple-500 mr-2"></i>
+                                <span class="text-sm text-gray-600">Audio Files (MP3, WAV, M4A, etc.)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-700 mb-3">Features</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span class="text-sm text-gray-600">AI-Powered Summaries</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span class="text-sm text-gray-600">Interactive Quizzes</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span class="text-sm text-gray-600">Audio Transcription</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span class="text-sm text-gray-600">Session History</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form id="uploadForm" class="space-y-4">
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                    <p class="text-lg text-gray-600 mb-2">Drag and drop files here or click to browse</p>
+                    <p class="text-sm text-gray-500 mb-4">You can upload multiple files at once</p>
+                    <input type="file" id="fileInput" multiple accept=".pdf,.docx,.doc,.pptx,.ppt,.mp3,.wav,.m4a,.flac,.ogg,.aac" class="hidden">
+                    <button type="button" id="browseBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
+                        Browse Files
+                    </button>
+                </div>
+                
+                <div id="fileList" class="hidden space-y-2"></div>
+                
+                <button type="submit" id="uploadBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="fas fa-rocket mr-2"></i>Process Documents
+                </button>
+            </form>
+        </div>
+
+        <!-- Processing Status Section -->
+        <div id="processingSection" class="hidden bg-white rounded-lg shadow-sm border p-6 mb-8">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">
+                <i class="fas fa-cogs mr-2 text-blue-600"></i>Processing Status
+            </h2>
+            
+            <div id="processingStatus" class="space-y-4">
+                <!-- Status will be populated here -->
+            </div>
+            
+            <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                <div class="flex items-center">
+                    <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mr-3"></div>
+                    <p class="text-blue-800">Processing your documents. This may take a few minutes for large files or audio transcription.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="hidden bg-white rounded-lg shadow-sm border p-6 mb-8">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">
+                <i class="fas fa-chart-bar mr-2 text-blue-600"></i>Results
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <!-- Summary Section -->
+                <div class="border rounded-lg p-4">
+                    <h3 class="text-lg font-medium text-gray-700 mb-3">
+                        <i class="fas fa-file-alt mr-2 text-green-600"></i>Summary
+                    </h3>
+                    
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Summary Length:</label>
+                        <select id="summaryType" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="short">Short (2-3 sentences)</option>
+                            <option value="medium" selected>Medium (4-6 sentences)</option>
+                            <option value="long">Long (8-10 sentences)</option>
+                        </select>
+                    </div>
+                    
+                    <button id="generateSummaryBtn" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition-colors">
+                        <i class="fas fa-magic mr-2"></i>Generate Summary
+                    </button>
+                    
+                    <div id="summaryResult" class="mt-4 hidden">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="font-medium text-gray-700 mb-2">Summary:</h4>
+                            <p id="summaryContent" class="text-gray-600 text-sm leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quiz Section -->
+                <div class="border rounded-lg p-4">
+                    <h3 class="text-lg font-medium text-gray-700 mb-3">
+                        <i class="fas fa-question-circle mr-2 text-purple-600"></i>Quiz
+                    </h3>
+                    
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Number of Questions:</label>
+                        <select id="questionCount" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="5">5 Questions</option>
+                            <option value="10" selected>10 Questions</option>
+                            <option value="15">15 Questions</option>
+                            <option value="20">20 Questions</option>
+                            <option value="25">25 Questions</option>
+                        </select>
+                    </div>
+                    
+                    <button id="generateQuizBtn" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg transition-colors">
+                        <i class="fas fa-brain mr-2"></i>Generate Quiz
+                    </button>
+                    
+                    <div id="quizResult" class="mt-4 hidden">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="font-medium text-gray-700 mb-2">Quiz Questions:</h4>
+                            <div id="quizContent" class="space-y-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Save Session -->
+            <div class="border-t pt-6">
+                <div class="flex items-center space-x-4">
+                    <input type="text" id="sessionName" placeholder="Enter a name for this session" class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button id="saveSessionBtn" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg transition-colors">
+                        <i class="fas fa-save mr-2"></i>Save Session
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- History Modal -->
+    <div id="historyModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-medium text-gray-900">Session History</h3>
+                <button id="closeHistoryBtn" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div id="historyList" class="space-y-3 max-h-96 overflow-y-auto">
+                <!-- History items will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p class="text-gray-700">Processing...</p>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
