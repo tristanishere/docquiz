@@ -1,0 +1,231 @@
+/* Custom styles for Document AI Processor */
+
+/* File upload area hover effects */
+.upload-area {
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* File list animations */
+.file-item {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Processing status animations */
+.status-processing {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Quiz question animations */
+.quiz-question {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Summary result animation */
+.summary-result {
+    animation: slideInRight 0.4s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Button hover effects */
+.btn-hover {
+    transition: all 0.2s ease;
+}
+
+.btn-hover:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal animations */
+.modal-enter {
+    animation: modalEnter 0.3s ease-out;
+}
+
+@keyframes modalEnter {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* File type icons */
+.file-icon {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.file-icon.pdf { color: #dc2626; }
+.file-icon.docx { color: #2563eb; }
+.file-icon.pptx { color: #ea580c; }
+.file-icon.audio { color: #9333ea; }
+
+/* Progress bar */
+.progress-bar {
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    height: 4px;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+/* Status badges */
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.status-badge.pending {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.status-badge.processing {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.status-badge.completed {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.status-badge.failed {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .grid-cols-1.md\:grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    .max-w-7xl {
+        max-width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Loading spinner */
+.spinner {
+    border: 2px solid #f3f4f6;
+    border-top: 2px solid #3b82f6;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Toast notifications */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    color: white;
+    font-weight: 500;
+    z-index: 1000;
+    animation: slideInLeft 0.3s ease-out;
+}
+
+.toast.success {
+    background-color: #10b981;
+}
+
+.toast.error {
+    background-color: #ef4444;
+}
+
+.toast.info {
+    background-color: #3b82f6;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
